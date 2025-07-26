@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 
 const mongoURL = process.env.MONGODB_URI ||"mongodb://127.0.0.1:27017/hospital";
 
+
 // Database configuration function
+
 const dbConfig = () => {
     mongoose
-      .connect(mongoURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(mongoURL)
       .then(() => {
         console.log("Database connected successfully.");
       })

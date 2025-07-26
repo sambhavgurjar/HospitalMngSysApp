@@ -1,9 +1,10 @@
 const doctorController = require("../controllers/doctor.controller");
 const express = require("express");
 const router = express.Router();
+const fileHandler = require("../utils/fileHandler.js");
 
 // Create a new doctor
-router.post("/", doctorController.createDoctor);
+router.post("/", fileHandler("doctors").single("file"), doctorController.createDoctor);
 
 // Get all doctors
 router.get("/", doctorController.getAllDoctors);
@@ -13,6 +14,9 @@ router.get("/doctor/:doctorid", doctorController.getDoctorBydoctorid);
 
 // Get doctor by ID
 router.get("/:id", doctorController.getDoctorById);
+
+// Get doctor image by filename
+router.get("/image/:profilePic", doctorController.getDoctorImage);
 
 // Update doctor by ID
 router.put("/:id", doctorController.updateDoctorById);

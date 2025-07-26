@@ -37,6 +37,10 @@ const departSchema = new mongoose.Schema(
       enum:[true, false],
       default: true,
     },
+    image: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
