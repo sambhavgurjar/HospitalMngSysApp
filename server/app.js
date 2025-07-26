@@ -1,15 +1,20 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-
+const cors = require("cors");
+const patientRoutes = require("./routes/patient.route.js");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Hospital Management System API');
+//  routes
+app.use("/api/patients", patientRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("Error occurred:", err);
+  res
+    .status(err.statusCode || 500)
+    .json({ message: err.message || "Internal Server Error" });
 });
-
-
 
 module.exports = app;

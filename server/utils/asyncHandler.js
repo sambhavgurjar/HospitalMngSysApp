@@ -1,12 +1,12 @@
 //handler  async functions error
 
-const AsyncWrap = (fn) => {
+const asyncHandler = (fn) => {
   return function (req, res, next) {
     fn(req, res, next).catch((error) => {
-      console.error("AsyncWrap Error:-", error);
+      console.error("asyncHandler Error:-", error);
       next(error);
     });
   };
 };
 
-module.exports = AsyncWrap;
+module.exports = asyncHandler;
