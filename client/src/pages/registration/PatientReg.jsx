@@ -19,7 +19,6 @@ const PatientReg = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Patient Data:", formData);
-    // TODO: Send formData to backend API
   };
 
   return (

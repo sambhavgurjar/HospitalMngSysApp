@@ -14,7 +14,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Send formData to backend
     console.log("Login Data:", formData);
   };
 
