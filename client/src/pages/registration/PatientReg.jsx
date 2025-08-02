@@ -1,14 +1,16 @@
 import { useState } from "react";
+import axios from "../../services/axios.js";
 
 const PatientReg = () => {
   const [formData, setFormData] = useState({
-    pid: "",
     name: "",
     dob: "",
     gender: "",
     email: "",
     contact: "",
     address: "",
+    password: "",
+    userid: "",
   });
 
   const handleChange = (e) => {
@@ -16,10 +18,16 @@ const PatientReg = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Patient Data:", formData);
-    // TODO: Send formData to backend API
+
+    try {
+      console.log("Patient Data:", formData);
+      const res = await axios.post("/patients", formData);
+      alert(res.data.message || "Patient registered successfully!");
+    } catch (err) {
+      alert(err.response?.data?.message || "Error registering patient");
+    }
   };
 
   return (
@@ -31,27 +39,29 @@ const PatientReg = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
-              Patient ID
-            </label>
-            <input
-              type="number"
-              name="pid"
-              value={formData.pid}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 text-gray-700 font-medium">Name</label>
+            <label className="block mb-1 text-gray-700 font-medium">Full Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder="Enter full name"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-gray-700 font-medium">
+              User ID
+            </label>
+            <input
+              type="text"
+              name="userid"
+              value={formData.userid}
+              onChange={handleChange}
+              required
+              placeholder="Create a user ID"
               className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -67,6 +77,7 @@ const PatientReg = () => {
                 value={formData.dob}
                 onChange={handleChange}
                 required
+                placeholder="Select DOB"
                 className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
@@ -100,6 +111,23 @@ const PatientReg = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder="Enter email address"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-gray-700 font-medium">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              minLength={6}
+              required
+              placeholder="Create a secure password"
               className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -116,8 +144,8 @@ const PatientReg = () => {
               pattern="\d{10}"
               maxLength={10}
               required
+              placeholder="Enter 10-digit mobile number"
               className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="10-digit number"
             />
           </div>
 
@@ -131,6 +159,7 @@ const PatientReg = () => {
               onChange={handleChange}
               required
               rows={3}
+              placeholder="Enter full address"
               className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>

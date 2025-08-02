@@ -1,21 +1,44 @@
 import { useState } from "react";
+import axios from "../services/axios.js";
+import {jwtDecode} from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    userId: "",
+    userid: "",
     password: "",
     role: "patient",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Send formData to backend
     console.log("Login Data:", formData);
+    try {
+      const response = await axios.post("/login", formData);
+      console.log(response.data);
+      alert(response?.data?.message);
+      localStorage.setItem("token", response.data.data.token);
+      let userRole = jwtDecode(response.data.data.token).role;
+      // console.log("User Role:", userRole);
+      if (userRole === "patient") {
+        navigate("/patient/home");
+      }
+      else if (userRole === "doctor") {
+        navigate("/doctor/home");
+      } else if (userRole === "admin") {
+        navigate("/admin/home");
+      }
+
+    } catch (err) {
+      alert(err.response?.data?.message || "Error logging in");
+    }
+    // TODO: Send formData to backend
   };
 
   return (
@@ -35,9 +58,9 @@ const Login = () => {
             </label>
             <input
               type="text"
-              id="userId"
-              name="userId"
-              value={formData.userId}
+              id="userid"
+              name="userid"
+              value={formData.userid}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Enter your ID"
