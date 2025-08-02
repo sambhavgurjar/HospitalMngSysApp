@@ -1,7 +1,8 @@
-const path = require("path");
+
 const fs = require("fs");
 const doctorService = require("../services/doctor.service");
 const asyncHandler = require("../utils/asyncHandler.js");
+const path = require("path");
 // Create a new doctor
 exports.createDoctor = asyncHandler(async (req, res) => {
   console.log(req);
@@ -46,9 +47,9 @@ exports.updateDoctorById = asyncHandler(async (req, res) => {
 
 exports.getDoctorImage = asyncHandler(async (req, res) => {
     const filename = req.params.profilePic;
-    let path = path.join(__dirname, "../uploads/doctors", filename);
-    if (fs.existsSync(path)) {
-        res.status(200).sendFile(path);
+    let imgPath = path.join(__dirname, "../uploads/doctors", filename);
+    if (fs.existsSync(imgPath)) {
+        res.status(200).sendFile(imgPath);
     } else {
         res.status(404).json({ message: "Image not found" });
     }

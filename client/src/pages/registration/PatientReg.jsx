@@ -39,7 +39,9 @@ const PatientReg = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">Full Name</label>
+            <label className="block mb-1 text-gray-700 font-medium">
+              Full Name
+            </label>
             <input
               type="text"
               name="name"

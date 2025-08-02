@@ -35,8 +35,11 @@ exports.createDoctor = async (doctorData) => {
 exports.getAllDoctors = async () => {
   try {
     const doctors = await Doctor.find().populate("depart", "name");
+    
     return { data: doctors, message: "Doctors fetched successfully" };
   } catch (error) {
+    console.log(error);
+    
     throw new AppError( error?.message || "Error fetching doctors", 500);
   }
 };
