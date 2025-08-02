@@ -7,7 +7,7 @@ const PatientSchema = new Schema(
     name: { type: String, required: true, minlength: 3, maxlength: 20 },
     dob: { type: Date, required: true },
     gender: { type: String, required: true, enum: ["male", "female", "other"] },
-    password: { type: String, required: true, minlength: 6 },
+    password: { type: String, required: true,trim: true,minlength: 6 },
     email: {
       type: String,
       required: true,

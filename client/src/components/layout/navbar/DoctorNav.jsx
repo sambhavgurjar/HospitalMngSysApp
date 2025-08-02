@@ -1,24 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const PatientNav = () => {
+const DoctorNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.clear();
-
+    navigate("/login", { replace: true });
   };
 
-
-    
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/patient/home" className="text-xl font-bold text-blue-700">
-          CityCare | Patient
+        <Link to="/doctor/home" className="text-xl font-bold text-blue-700">
+          CityCare | Doctor
         </Link>
 
         {/* Hamburger Button */}
@@ -53,34 +50,33 @@ const PatientNav = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
           <Link
-            to="/patient/home"
+            to="/doctor/home"
             className="text-gray-700 hover:text-blue-700 transition"
           >
             Dashboard
           </Link>
           <Link
-            to="/patient/appointments"
+            to="/doctor/appointments"
             className="text-gray-700 hover:text-blue-700 transition"
           >
             Appointments
           </Link>
           <Link
-            to="/patient/records"
+            to="/doctor/patients"
             className="text-gray-700 hover:text-blue-700 transition"
           >
-            Records
+            Patients
           </Link>
           <Link
-            to="/patient/messages"
+            to="/doctor/profile"
             className="text-gray-700 hover:text-blue-700 transition"
           >
-            Messages
+            Profile
           </Link>
           <Link
             to="/login"
-                      className="text-red-500 hover:text-red-700 transition"
-                      onClick={handleLogout}
-                      replace={true}
+            className="text-red-500 hover:text-red-700 transition"
+            onClick={handleLogout}
           >
             Logout
           </Link>
@@ -91,41 +87,40 @@ const PatientNav = () => {
       {isMenuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2">
           <Link
-            to="/patient/home"
+            to="/doctor/home"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
             Dashboard
           </Link>
           <Link
-            to="/patient/appointments"
+            to="/doctor/appointments"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
             Appointments
           </Link>
           <Link
-            to="/patient/records"
+            to="/doctor/patients"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
-            Records
+            Patients
           </Link>
           <Link
-            to="/patient/messages"
+            to="/doctor/profile"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
-            Messages
+            Profile
           </Link>
           <Link
             to="/login"
             className="block text-red-500 hover:text-red-700 transition"
-                      onClick={() => {
-                          setIsMenuOpen(false);
-                          handleLogout();
-                      }}
-                      replace={true}
+            onClick={() => {
+              setIsMenuOpen(false);
+              handleLogout();
+            }}
           >
             Logout
           </Link>
@@ -135,4 +130,4 @@ const PatientNav = () => {
   );
 };
 
-export default PatientNav;
+export default DoctorNav;

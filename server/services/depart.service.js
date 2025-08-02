@@ -16,16 +16,16 @@ exports.createDepart = async (departData) => {
     await Depart.create(departData);
     return { message: "Department created successfully" };
   } catch (error) {
-    next(error);
+    throw new AppError(error?.message || "Error creating department", 500);
   }
 };
 // get all departments
 exports.getAllDeparts = async () => {
   try {
-    const departs = await Depart.find().sort({ departid: 1 });
+    const departs = await Depart.find().populate("hod").sort({ departid: 1 });
     return { data: departs, message: "Departments fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching departments", 500);
+    throw new AppError(error?.message || "Error fetching departments", 500);
   }
 }
 // get a department by departid
@@ -37,7 +37,7 @@ exports.getDepartByDepartid = async (departid) => {
     }
     return { data: depart, message: "Department fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching department", 500);
+    throw new AppError(error?.message || "Error fetching department", 500);
   }
 };
 
@@ -51,14 +51,14 @@ exports.getDepartById = async (id) => {
     }
     return { data: depart, message: "Department fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching department", 500);
+    throw new AppError(error?.message || "Error fetching department", 500);
   }
 };
 
 // update a department by departid
-exports.updateDepart = async (departid, updateData) => {
+exports.updateDepart = async (id, updateData) => {
   try {
-    const depart = await Depart.findOneAndUpdate({ departid }, updateData, {
+    const depart = await Depart.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,
     });
@@ -67,7 +67,7 @@ exports.updateDepart = async (departid, updateData) => {
     }
     return { data: depart, message: "Department updated successfully" };
   } catch (error) {
-    throw new AppError("Error updating department", 500);
+    throw new AppError(error?.message || "Error updating department", 500);
   }
 };
 
@@ -80,6 +80,6 @@ exports.deleteDepart = async (id) => {
     }
     return { message: "Department deleted successfully" };
   } catch (error) {
-    throw new AppError("Error deleting department", 500);
+    throw new AppError(error?.message || "Error deleting department", 500);
   }
 };

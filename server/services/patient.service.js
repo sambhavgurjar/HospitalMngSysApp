@@ -12,6 +12,10 @@ exports.createPatient = async (patientData) => {
     if (existingEmail) {
       throw new AppError("Email already exists", 400);
     }
+    const existingUserId = await Patient.findOne({ userid: patientData.userid });
+    if (existingUserId) {
+      throw new AppError("User ID already exists", 400);
+    }
     const existingContact = await Patient.findOne({ contact: patientData.contact });
     if (existingContact) {
       throw new AppError("Contact number already exists", 400);

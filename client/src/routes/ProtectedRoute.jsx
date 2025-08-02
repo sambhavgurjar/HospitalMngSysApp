@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children, userRole }) {
   try {
     const decoded = jwtDecode(token);
 
-    console.log("Decoded Token:", decoded);
+    // console.log("Decoded Token:", decoded);
 
     if (decoded?.role === userRole) {
       return children;

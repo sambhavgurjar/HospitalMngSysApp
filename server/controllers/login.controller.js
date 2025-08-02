@@ -10,7 +10,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     if (result.data) { 
         // Generate JWT token
         const token = jwt.sign(
-            { id: result.data._id, role: userData.role },
+            { id: result.data._id, role: userData.role, email: result.data.email },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );

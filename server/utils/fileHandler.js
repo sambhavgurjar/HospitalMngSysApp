@@ -5,7 +5,7 @@ const fs = require("fs");
 let fileHandler = (pathDir) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      let fullPath = path.join(__dirname, `../uploads/${pathDir}`);
+      let fullPath = path.resolve(__dirname, `../uploads/${pathDir}`);
       if (!fs.existsSync(fullPath)) {
         fs.mkdirSync(fullPath, { recursive: true });
       }
@@ -15,6 +15,7 @@ let fileHandler = (pathDir) => {
       cb(null, Date.now() + path.extname(file.originalname));
     },
   });
+// console.log(storage);
 
   const upload = multer({
     storage: storage,

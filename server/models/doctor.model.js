@@ -4,7 +4,15 @@ const doctorSchema = new mongoose.Schema({
       type: Number,
       required: true,
       unique: true,
-    },
+  },
+  userid: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    minlength: 3,
+    maxlength: 20,
+  },
   name: {
     type: String,
     required: true,
@@ -12,6 +20,12 @@ const doctorSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 20,
     lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 6,
   },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
   dob: { type: Date, required: true },
@@ -37,7 +51,8 @@ const doctorSchema = new mongoose.Schema({
   depart: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Depart",
-    required: true,
+    // required: true,
+    default: null,
   },
   qualifications: { type: [String], default: [] },
   experience: { type: Number, required: true, min: 0 },
@@ -49,6 +64,10 @@ const doctorSchema = new mongoose.Schema({
   isActive: { type: Boolean, default: true },
   joiningDate: { type: Date },
   profilePic: { type: String, default: null },
+  role: {
+    type: String,
+    default: "doctor",
+  }
 });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);

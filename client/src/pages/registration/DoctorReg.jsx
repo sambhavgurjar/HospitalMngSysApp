@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "../../services/axios"
 
 const DoctorReg = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +9,9 @@ const DoctorReg = () => {
     email: "",
     contact: "",
     address: "",
-    depart: "",
+    userid: "",
+    password: "",
+    // depart: "",
     qualifications: "",
     experience: "",
     profilePic: null,
@@ -37,10 +40,37 @@ const DoctorReg = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Doctor Registration Data:", formData);
-  };
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+
+   const data = new FormData();
+
+   // Append all fields to FormData
+   for (const key in formData) {
+     if (Array.isArray(formData[key])) {
+       data.append(key, JSON.stringify(formData[key])); // qualifications array
+     } else {
+       data.append(key, formData[key]);
+     }
+   }
+
+   try {
+     const res = await axios.post("/doctors", data, {
+       headers: {
+         "Content-Type": "multipart/form-data",
+       },
+     });
+
+     alert(res.data.message || "Doctor registered successfully!");
+
+   } catch (error) {
+     console.error("Error registering doctor:", error);
+     alert(error.response?.data?.message || "Error registering doctor");
+   }
+
+   console.log("Doctor Registration Data:", formData);
+ };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white px-4 py-10">
@@ -62,6 +92,35 @@ const DoctorReg = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                User Id
+              </label>
+              <input
+                type="text"
+                name="userid"
+                placeholder="Enter doctor's user ID"
+                value={formData.userid}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block mb-1 text-gray-700 font-medium">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter doctor's password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                minLength={6}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
@@ -148,7 +207,7 @@ const DoctorReg = () => {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block mb-1 text-gray-700 font-medium">
               Department
             </label>
@@ -160,11 +219,11 @@ const DoctorReg = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <option value="">Select department</option>
-              <option value="">Cardiology</option>
-              <option value="">Orthopedics</option>
-              <option value="">Neurology</option>
+              <option value="78676uigjv8th">Cardiology</option>
+              <option value="7987hghyt9yj">Orthopedics</option>
+              <option value="9878uyghiyuui">Neurology</option>
             </select>
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

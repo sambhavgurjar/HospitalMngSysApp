@@ -14,10 +14,16 @@ const Home = () => {
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full px-4">
           <Link
-            to="/patients"
+            to="/register/patient"
             className="w-full sm:w-auto bg-blue-700 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-800 transition text-center"
           >
             Register as Patient
+          </Link>
+          <Link
+            to="/register/doctor"
+            className="w-full sm:w-auto bg-blue-700 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-800 transition text-center"
+          >
+            Register as Doctor
           </Link>
           <Link
             to="/doctors"

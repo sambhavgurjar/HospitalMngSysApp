@@ -1,24 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const PatientNav = () => {
+const AdminNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.clear();
-
+    navigate("/login", { replace: true });
   };
 
-
-    
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/patient/home" className="text-xl font-bold text-blue-700">
-          CityCare | Patient
+        <Link to="/admin/home" className="text-xl font-bold text-blue-700">
+          CityCare | Admin
         </Link>
 
         {/* Hamburger Button */}
@@ -53,37 +50,47 @@ const PatientNav = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
           <Link
-            to="/patient/home"
+            to="/admin/home"
             className="text-gray-700 hover:text-blue-700 transition"
           >
             Dashboard
           </Link>
           <Link
-            to="/patient/appointments"
+            to="/admin/doctors"
+            className="text-gray-700 hover:text-blue-700 transition"
+          >
+            Doctors
+          </Link>
+          <Link
+            to="/admin/patients"
+            className="text-gray-700 hover:text-blue-700 transition"
+          >
+            Patients
+          </Link>
+          <Link
+            to="/admin/appointments"
             className="text-gray-700 hover:text-blue-700 transition"
           >
             Appointments
           </Link>
           <Link
-            to="/patient/records"
+            to="/admin/departments"
             className="text-gray-700 hover:text-blue-700 transition"
           >
-            Records
+            Departments
           </Link>
           <Link
-            to="/patient/messages"
+            to="/admin/reports"
             className="text-gray-700 hover:text-blue-700 transition"
           >
-            Messages
+            Reports
           </Link>
-          <Link
-            to="/login"
-                      className="text-red-500 hover:text-red-700 transition"
-                      onClick={handleLogout}
-                      replace={true}
+          <button
+            onClick={handleLogout}
+            className="text-red-500 hover:text-red-700 transition"
           >
             Logout
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -91,48 +98,60 @@ const PatientNav = () => {
       {isMenuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2">
           <Link
-            to="/patient/home"
+            to="/admin/home"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
             Dashboard
           </Link>
           <Link
-            to="/patient/appointments"
+            to="/admin/doctors"
+            className="block text-gray-700 hover:text-blue-700 transition"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Doctors
+          </Link>
+          <Link
+            to="/admin/patients"
+            className="block text-gray-700 hover:text-blue-700 transition"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Patients
+          </Link>
+          <Link
+            to="/admin/appointments"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
             Appointments
           </Link>
           <Link
-            to="/patient/records"
+            to="/admin/departments"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
-            Records
+            Departments
           </Link>
           <Link
-            to="/patient/messages"
+            to="/admin/reports"
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
-            Messages
+            Reports
           </Link>
-          <Link
-            to="/login"
+          <button
+            onClick={() => {
+              setIsMenuOpen(false);
+              handleLogout();
+            }}
             className="block text-red-500 hover:text-red-700 transition"
-                      onClick={() => {
-                          setIsMenuOpen(false);
-                          handleLogout();
-                      }}
-                      replace={true}
           >
             Logout
-          </Link>
+          </button>
         </div>
       )}
     </nav>
   );
 };
 
-export default PatientNav;
+export default AdminNav;

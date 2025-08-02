@@ -6,6 +6,8 @@ const Doctor = require("../models/doctor.model");
 //login
 exports.login = async (userData) => {
   try {
+    // console.log("Login attempt with data:", userData);
+    
     const { userid, password, role } = userData;
     if (role === "patient") {
       // Check if user exists
@@ -36,11 +38,11 @@ exports.login = async (userData) => {
     }
 
     if (role === "admin") {
-      // Admin login logic can be added here
-      // For now, we will just return a success message
-      return { message: "Admin login successful" };
+      if (userid === process.env.ADMIN_ID && password === process.env.ADMIN_PASSWORD) {
+        return {data:{_id: process.env.ADMIN_ID, email: process.env.ADMIN_EMAIL, role: "admin"}, message: "Admin login successful" };
+      }
+      throw new AppError("Invalid role", 400);
     }
-    throw new AppError("Invalid role", 400);
   } catch (error) {
     throw new AppError(error?.message || "Login failed", 500);
   }
