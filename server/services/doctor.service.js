@@ -1,5 +1,7 @@
 const Doctor = require("../models/doctor.model.js");
 const AppError = require("../utils/AppError.js");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 //create a new doctor
 exports.createDoctor = async (doctorData) => {
@@ -8,12 +10,24 @@ exports.createDoctor = async (doctorData) => {
     if (existingEmail) {
       throw new AppError("Email already exists", 400);
     }
+    let existingUserId = await Doctor.findOne({ userid: doctorData.userid });
+    if (existingUserId) {
+      throw new AppError("User ID already exists", 400);
+    }
+    let existingContact = await Doctor.findOne({ contact: doctorData.contact });
+    if (existingContact) {
+      throw new AppError("Contact number already exists", 400);
+    }
+    // Hash the password before saving
+    const hashedPass = await bcrypt.hash(doctorData.password, 10);
+    doctorData.password = hashedPass;
+    //generate a new doctor ID
     let newId = await Doctor.findOne().sort({ doctorid: -1 });
     doctorData.doctorid = newId ? newId.doctorid + 1 : 1;
     await Doctor.create(doctorData);
     return { message: "Doctor created successfully" };
   } catch (error) {
-    throw new AppError("Error creating doctor", 500);
+    throw new AppError( error?.message || "Error creating doctor", 500);
   }
 };
 
@@ -23,7 +37,7 @@ exports.getAllDoctors = async () => {
     const doctors = await Doctor.find().populate("depart", "name");
     return { data: doctors, message: "Doctors fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching doctors", 500);
+    throw new AppError( error?.message || "Error fetching doctors", 500);
   }
 };
 
@@ -39,7 +53,7 @@ exports.getDoctorBydoctorid = async (doctorId) => {
     }
     return { data: doctor, message: "Doctor fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching doctor", 500);
+    throw new AppError( error?.message || "Error fetching doctor", 500);
   }
 };
 
@@ -52,7 +66,7 @@ exports.getDoctorById = async (id) => {
     }
     return { data: doctor, message: "Doctor fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching doctor", 500);
+    throw new AppError( error?.message || "Error fetching doctor", 500);
   }
 };
 
@@ -68,7 +82,7 @@ exports.updateDoctorById = async (id, updateData) => {
     }
     return { data: doctor, message: "Doctor updated successfully" };
   } catch (error) {
-    throw new AppError("Error updating doctor", 500);
+    throw new AppError( error?.message || "Error updating doctor", 500);
   }
 };
 //delete doctor by id
@@ -80,6 +94,6 @@ exports.deleteDoctorById = async (id) => {
     }
     return { message: "Doctor deleted successfully" };
   } catch (error) {
-    throw new AppError("Error deleting doctor", 500);
+    throw new AppError( error?.message || "Error deleting doctor", 500);
   }
 };

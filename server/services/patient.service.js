@@ -1,23 +1,40 @@
 const Patient = require("../models/patient.model.js");
 const AppError = require("../utils/AppError.js");
+const bcrypt = require("bcryptjs");
 
 // create a new patient
 
 exports.createPatient = async (patientData) => {
   try {
+    // console.log("Creating patient with data:", patientData);
+    
     const existingEmail = await Patient.findOne({ email: patientData.email });
     if (existingEmail) {
       throw new AppError("Email already exists", 400);
     }
+    const existingUserId = await Patient.findOne({ userid: patientData.userid });
+    if (existingUserId) {
+      throw new AppError("User ID already exists", 400);
+    }
+    const existingContact = await Patient.findOne({ contact: patientData.contact });
+    if (existingContact) {
+      throw new AppError("Contact number already exists", 400);
+    }
+    // Hash the password before saving
+    const hashedPass = await bcrypt.hash(patientData.password, 10);
+    patientData.password = hashedPass;
+    
     //generate a new patient ID
-    const newPid = await Patient.findOne().sort({ pid: -1 });
+    let newPid = await Patient.findOne().sort({ pid: -1 });
     newPid ? (newPid = newPid.pid + 1) : (newPid = 1);
     patientData.pid = newPid;
     const patient = await Patient.create(patientData);
 
     return { message: "Patient created successfully" };
   } catch (error) {
-    throw new AppError("Error creating patient", 500);
+    // console.log("Error creating patient:", error.message);
+
+    throw new AppError(error?.message || "Error creating patient", 500);
   }
 };
 
@@ -28,7 +45,7 @@ exports.getAllPatients = async () => {
     const patients = await Patient.find();
     return { data: patients, message: "Patients fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching patients", 500);
+    throw new AppError(error?.message || "Error fetching patients", 500);
   }
 };
 
@@ -41,7 +58,7 @@ exports.getPatientById = async (id) => {
     }
     return { data: patient, message: "Patient fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching patient", 500);
+    throw new AppError(error?.message || "Error fetching patient", 500);
   }
 };
 // get a patient by ID
@@ -51,7 +68,7 @@ exports.getPatientByPid = async (pid) => {
     
     return { data: patient, message: "Patient fetched successfully" };
   } catch (error) {
-    throw new AppError("Error fetching patient", 500);
+    throw new AppError(error?.message || "Error fetching patient", 500);
   }
 };
 
@@ -64,6 +81,6 @@ exports.deletePatientById = async (id) => {
     }
     return { message: "Patient deleted successfully" };
   } catch (error) {
-    throw new AppError("Error deleting patient", 500);
+    throw new AppError(error?.message || "Error deleting patient", 500);
   }
 };

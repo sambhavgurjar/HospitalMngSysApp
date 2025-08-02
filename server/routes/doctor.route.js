@@ -4,7 +4,7 @@ const router = express.Router();
 const fileHandler = require("../utils/fileHandler.js");
 
 // Create a new doctor
-router.post("/", fileHandler("doctors").single("file"), doctorController.createDoctor);
+router.post("/", fileHandler("doctors").single("profilePic"), doctorController.createDoctor);
 
 // Get all doctors
 router.get("/", doctorController.getAllDoctors);

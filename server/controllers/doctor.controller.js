@@ -4,7 +4,10 @@ const doctorService = require("../services/doctor.service");
 const asyncHandler = require("../utils/asyncHandler.js");
 // Create a new doctor
 exports.createDoctor = asyncHandler(async (req, res) => {
+  console.log(req);
+  console.log("File upload:", req.file);
   req.body.profilePic = req?.file ? req.file?.filename : null; // Handle file upload
+  
   const doctorData = req.body;
   const result = await doctorService.createDoctor(doctorData);
   res.status(201).json(result);
