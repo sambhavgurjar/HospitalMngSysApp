@@ -24,9 +24,8 @@ function App() {
               <PatientNav />
               <div className="pt-13 min-h-screen bg-gray-50">
                 <Suspense fallback={<div>Loading...</div>}>
-                  <GeneralRoute />
-                </Suspense>
                 <PatientRoute />
+                </Suspense>
               </div>
               <Footer />
             </ProtectedRoute>
