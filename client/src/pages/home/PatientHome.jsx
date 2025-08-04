@@ -17,9 +17,22 @@ const PatientHome = () => {
         </header>
 
         {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
           {/* Appointments */}
-          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
+          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition flex flex-col justify-between">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Doctors
+            </h2>
+            <p className="text-gray-600 mb-4">Select doctor and book and appointmnet. </p>
+            <Link
+              to="/patient/doctors"
+              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition max-w-max"
+            >
+              View Doctors
+            </Link>
+          </div>
+
+          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition flex flex-col justify-between">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
               Appointments
             </h2>
@@ -28,14 +41,14 @@ const PatientHome = () => {
             </p>
             <Link
               to="/appointments"
-              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
+              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition max-w-max"
             >
               View Appointments
             </Link>
           </div>
 
           {/* Records */}
-          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
+          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition flex flex-col justify-between">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
               Medical Records
             </h2>
@@ -44,14 +57,14 @@ const PatientHome = () => {
             </p>
             <Link
               to="/records"
-              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
+              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition max-w-max"
             >
               View Records
             </Link>
           </div>
 
           {/* Messages */}
-          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
+          <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition flex flex-col justify-between">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
               Messages
             </h2>
@@ -60,14 +73,12 @@ const PatientHome = () => {
             </p>
             <Link
               to="/messages"
-              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
+              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition max-w-max"
             >
               Go to Messages
             </Link>
           </div>
         </div>
-
-    
       </div>
     </div>
   );

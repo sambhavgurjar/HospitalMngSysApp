@@ -56,7 +56,14 @@ const PatientNav = () => {
             to="/patient/home"
             className="text-gray-700 hover:text-blue-700 transition"
           >
-            Dashboard
+            Home
+          </Link>
+
+          <Link
+            to="/patient/doctors"
+            className="text-gray-700 hover:text-blue-700 transition"
+          >
+            Doctors
           </Link>
           <Link
             to="/patient/appointments"
@@ -78,9 +85,9 @@ const PatientNav = () => {
           </Link>
           <Link
             to="/login"
-                      className="text-red-500 hover:text-red-700 transition"
-                      onClick={handleLogout}
-                      replace={true}
+            className="text-red-500 hover:text-red-700 transition"
+            onClick={handleLogout}
+            replace={true}
           >
             Logout
           </Link>
@@ -95,7 +102,14 @@ const PatientNav = () => {
             className="block text-gray-700 hover:text-blue-700 transition"
             onClick={() => setIsMenuOpen(false)}
           >
-            Dashboard
+            Home
+          </Link>
+          <Link
+            to="/patient/doctors"
+            className="block text-gray-700 hover:text-blue-700 transition"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Doctors
           </Link>
           <Link
             to="/patient/appointments"
@@ -121,11 +135,11 @@ const PatientNav = () => {
           <Link
             to="/login"
             className="block text-red-500 hover:text-red-700 transition"
-                      onClick={() => {
-                          setIsMenuOpen(false);
-                          handleLogout();
-                      }}
-                      replace={true}
+            onClick={() => {
+              setIsMenuOpen(false);
+              handleLogout();
+            }}
+            replace={true}
           >
             Logout
           </Link>
