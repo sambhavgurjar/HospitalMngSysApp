@@ -3,7 +3,7 @@ const asyncHandler = require("../utils/asyncHandler");
 
 // Create Appointment
 exports.createAppoint = asyncHandler(async (req, res) => {
-  const response = await appointService.createAppoint(req.data);
+  const response = await appointService.createAppoint(req.body);
   res.status(200).json(response);
 });
 

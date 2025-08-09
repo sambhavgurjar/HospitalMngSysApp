@@ -4,7 +4,9 @@ const AppError = require("../utils/AppError");
 // Create appointment
 exports.createAppoint = async (data) => {
   try {
-    // Generate  appointid
+      // Generate  appointid
+      console.log(data);
+      
     let lastAppoint = await Appointment.findOne().sort({ appointid: -1 });
     const newId = lastAppoint ? lastAppoint.appointid + 1 : 1;
 
