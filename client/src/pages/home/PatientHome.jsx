@@ -40,7 +40,7 @@ const PatientHome = () => {
               Check your upcoming doctor visits and follow-ups.
             </p>
             <Link
-              to="/appointments"
+              to="/patient/appointments"
               className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition max-w-max"
             >
               View Appointments

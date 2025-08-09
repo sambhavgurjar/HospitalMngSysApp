@@ -63,6 +63,7 @@ exports.getDoctorBydoctorid = async (doctorId) => {
 //get doctor by id
 exports.getDoctorById = async (id) => {
   try {
+    
     const doctor = await Doctor.findById(id).populate("depart", "name");
     if (!doctor) {
       throw new AppError("Doctor not found", 404);

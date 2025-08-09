@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../services/axios";
+import { useNavigate } from "react-router-dom";
 
 const DoctorPage = () => {
   const [doctors, setDoctors] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchDoctors();
@@ -26,8 +28,10 @@ const DoctorPage = () => {
       alert("Login to book an appointment!");
       return;
     }
-    alert(`Booking appointment for Doctor ID: ${doctorId}`);
-    // TODO: Route to booking page or open modal
+    if (doctorId) {
+      navigate(`/patient/appointment/new/${doctorId}`);
+    }
+   
   };
 
   return (

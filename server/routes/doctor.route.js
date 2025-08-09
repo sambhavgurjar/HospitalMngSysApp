@@ -12,11 +12,11 @@ router.get("/", doctorController.getAllDoctors);
 // Get doctor by doctorid
 router.get("/doctor/:doctorid", doctorController.getDoctorBydoctorid);
 
-// Get doctor by ID
-router.get("/:id", doctorController.getDoctorById);
 
 // Get doctor image by filename
 router.get("/image/:profilePic", doctorController.getDoctorImage);
+// Get doctor by ID
+router.get("/:id", doctorController.getDoctorById);
 
 // Update doctor by ID
 router.put("/:id", doctorController.updateDoctorById);

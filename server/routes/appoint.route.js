@@ -8,8 +8,6 @@ router.post("/", appointContro.createAppoint);
 //get all appoint
 router.get("/", appointContro.getAllAppoints);
 
-
-
 //get appoint by patient id
 
 router.get("/patient/:id", appointContro.getAppointByPatientId);

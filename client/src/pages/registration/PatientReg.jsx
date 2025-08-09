@@ -21,6 +21,8 @@ const PatientReg = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // console.log("Patient Data:", formData);
+
     try {
       console.log("Patient Data:", formData);
       const res = await axios.post("/patients", formData);
@@ -139,7 +141,6 @@ const PatientReg = () => {
               Contact
             </label>
             <input
-              type="text"
               name="contact"
               value={formData.contact}
               onChange={handleChange}
