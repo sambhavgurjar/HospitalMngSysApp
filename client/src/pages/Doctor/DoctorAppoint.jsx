@@ -89,7 +89,7 @@ const DoctorAppoint = () => {
             <thead className="bg-gray-100">
               <tr>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
-                  #
+                  ID
                 </th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">
                   Patient

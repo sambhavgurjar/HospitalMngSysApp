@@ -4,6 +4,7 @@ const PatientHome = lazy(() => import("../pages/home/PatientHome"));
 const DoctorPage = lazy(() => import("../pages/Doctor/DoctorPage"));
 const AppointForm = lazy(() => import("../pages/Appointment/AppointForm"));
 const PatientAppoint = lazy(() => import("../pages/patient/PatientAppoint"));
+const PatientProfile = lazy(() => import("../pages/profile/PatientProfile"));
 
 
 export default function PatientRoute() {
@@ -14,6 +15,7 @@ export default function PatientRoute() {
         <Route path="doctors" element={<DoctorPage />} />
         <Route path="appointment/new/:docid" element={<AppointForm />} />
         <Route path="appointments" element={<PatientAppoint />} />
+        <Route path="profile" element={<PatientProfile />} />
       </Routes>
     </Suspense>
   );

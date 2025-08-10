@@ -4,6 +4,7 @@ const DoctorHome = lazy(() => import("../pages/home/DoctorHome"));
 const DoctorNav = lazy(() => import("../components/layout/navbar/DoctorNav"));
 const DoctorAppoint = lazy(() => import("../pages/Doctor/DoctorAppoint"));
 const DoctorPatient = lazy(() => import("../pages/Doctor/DoctorPatient"));
+const DoctorProfile = lazy(() => import("../pages/profile/DoctorProfile"));
 export default function DoctorRoute() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -12,7 +13,7 @@ export default function DoctorRoute() {
         <Route path="home" element={<DoctorHome />} />
         <Route path="appointments" element={<DoctorAppoint />} />
         <Route path="patients" element={<DoctorPatient />} />
-        {/* <Route path="profile" element={<DoctorProfile />} /> */}
+        <Route path="profile" element={<DoctorProfile />} />
       </Routes>
     </Suspense>
   );
